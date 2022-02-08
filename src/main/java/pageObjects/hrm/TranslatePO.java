@@ -48,8 +48,10 @@ public class TranslatePO extends BasePage {
 
 
     public void saveOutPutFile(String data) {
+    	String projectPath = System.getProperty("user.dir");
         try{
-            FileWriter fstream = new FileWriter(System.currentTimeMillis() + "out.txt");
+//            FileWriter fstream = new FileWriter(System.currentTimeMillis() + "out.txt");
+            FileWriter fstream = new FileWriter(projectPath + "\\dataFile\\output.txt");
             BufferedWriter out = new BufferedWriter(fstream);
             out.write(data);
             out.close();
