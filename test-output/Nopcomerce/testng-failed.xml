@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Nopcomerce]">
+  <parameter name="url" value="https://hvdic.thivien.net/hv"/>
+  <test thread-count="5" name="run on Chrome(failed)">
+    <parameter name="browser" value="Chrome"/>
+    <classes>
+      <class name="com.hrm.employee.Employee_HRM">
+        <methods>
+          <include name="afterClass"/>
+          <include name="TC_01_Add_New_Employee" invocation-numbers="0"/>
+          <include name="beforeClass"/>
+        </methods>
+      </class> <!-- com.hrm.employee.Employee_HRM -->
+    </classes>
+  </test> <!-- run on Chrome(failed) -->
+</suite> <!-- Failed suite [Nopcomerce] -->

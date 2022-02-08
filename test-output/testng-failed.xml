@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [TDT Page]">
+  <test thread-count="5" name="run on Headless Chrome(failed)">
+    <classes>
+      <class name="handle.data.Trans_Data_From_Web">
+        <methods>
+          <include name="TC_02_Translate"/>
+          <include name="afterClass"/>
+        </methods>
+      </class> <!-- handle.data.Trans_Data_From_Web -->
+    </classes>
+  </test> <!-- run on Headless Chrome(failed) -->
+</suite> <!-- Failed suite [TDT Page] -->
