@@ -1,22 +1,16 @@
 package handle.data;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Random;
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
-import pageObjects.hrm.PageGeneratorManager;
-import pageObjects.hrm.TdtPO;
-import pageObjects.hrm.TranslatePO;
+import pageObjects.PageGeneratorManager;
+import pageObjects.TranslatePO;
 import vn.pipeline.Annotation;
 import vn.pipeline.VnCoreNLP;
 import vn.pipeline.Word;
@@ -24,20 +18,21 @@ import vn.pipeline.Word;
 public class Trans_Data_From_Web extends BaseTest {
     WebDriver driver;
     String data;
-
+    String projectPath = System.getProperty("user.dir");
 
     @Test
-    public void TC_01_Translate() throws IOException {
-//		File folder = new File(projectPath+ "\\dataFile");
-//		File[] listOfFiles = folder.listFiles();
-//
-//		for (int i = 0; i < listOfFiles.length; i++) {
-//			File file = listOfFiles[i];
-//			if (file.isFile() && file.getName().contains("input")) {
-//				String content = FileUtils.readFileToString(file);
-//				 data = content;
-//			}
-//		}
+    public void TC_01_Translate() throws IOException, InterruptedException {
+
+        // Check file exist
+        File yourFile = new File(projectPath + "\\dataFile\\dic.txt");
+        try {
+            yourFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Random rand = new Random();
+        int randomNum = rand.nextInt(3);
 
         String data = readInputFile();
 
@@ -46,19 +41,33 @@ public class Trans_Data_From_Web extends BaseTest {
         Annotation annotation = new Annotation(data);
         pipeline.annotate(annotation);
 
-        driver = getDriverBrowsers("hchrome", "https://hvdic.thivien.net/hv");
+        driver = getDriverBrowsers("chrome", "https://hvdic.thivien.net/hv");
         TranslatePage = PageGeneratorManager.getTranslatePage(driver);
         Hashtable<String, String> dic = new Hashtable<String, String>();
+
+        //read file
+        TranslatePage.readDicFile(dic);
+
+        // dic.txt rong
+        try (FileWriter writer = new FileWriter(projectPath + "\\dataFile\\dic.txt");
+             BufferedWriter bw = new BufferedWriter(writer)) {
+            bw.write("");
+        } catch (IOException e) {
+            System.err.format("IOException: %s%n", e);
+        }
+
 
         for (Word w : annotation.getWords()) {
             String word = w.getForm().replace("_", " ");
             System.out.print(word);
-            TranslatePage.inputSearchTextBox(word);
+            TranslatePage.inputSearchTextBox(word.toLowerCase());
+            Thread.sleep(randomNum);
             TranslatePage.clickOnTraHanVietButton();
             TranslatePage.getKQHVText(word, dic);
         }
 
         driver.quit();
+
 
         System.out.println("\n" + dic);
 
@@ -67,12 +76,23 @@ public class Trans_Data_From_Web extends BaseTest {
             // Getting the key of a particular entry
             String key = e.nextElement();
             data = data.replace(key, dic.get(key));
+
+            try (FileWriter writer = new FileWriter(projectPath + "\\dataFile\\dic.txt", true);
+                 BufferedWriter bw = new BufferedWriter(writer)) {
+
+                bw.write(key + "-" + dic.get(key) + "\n");
+//                bw.write(""); // dic.txt rong
+//            bw.write(String.valueOf(dic));
+
+            } catch (IOException ex) {
+                System.err.format("IOException: %s%n", ex);
+            }
+
         }
 
-        System.out.println("\n" + data);
-        TranslatePage.saveOutPutFile(data);
+//        System.out.println("\n" + data);
+//        TranslatePage.saveOutPutFile(data);
     }
 
     TranslatePO TranslatePage;
-    TdtPO tdtPage;
 }

@@ -1,11 +1,10 @@
 package commons;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -36,7 +35,8 @@ public class BaseTest {
 	}
 
 	public WebDriver getDriverBrowsers(String browserName, String appURL) {
-
+		
+		
 		BROWSER browser = BROWSER.valueOf(browserName.toUpperCase());
 		if (browser == BROWSER.HCHROME) {
 			WebDriverManager.chromedriver().setup();
@@ -65,7 +65,7 @@ public class BaseTest {
 			throw new RuntimeException("plesae input correct browser name");
 		}
 
-		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		driver.get(appURL);
 		driver.manage().window().maximize();
 		return driver;
@@ -223,10 +223,49 @@ public class BaseTest {
 			File file = listOfFiles[i];
 			if (file.isFile() && file.getName().contains("input")) {
 				String content = FileUtils.readFileToString(file);
-				data = content;
+				data = content.toLowerCase();
 			}
 		}
 		return data;
+	}
+
+	public static String readDicFileNoTrans(String data){
+		String projectPath = System.getProperty("user.dir");
+//        Read file
+		try (BufferedReader bufferedReader =
+					 new BufferedReader(new FileReader(projectPath + "\\dataFile\\dic.txt"))) {
+
+			String line = bufferedReader.readLine();
+			while (line != null) {
+				System.out.println("doc:" + line);
+
+				// Read key value
+				Scanner scan = new Scanner(line);
+				//Initialize the string delimiter
+				scan.useDelimiter("-");
+				data = data.replace(scan.next(),scan.next());
+				scan.close();
+				System.out.println("data "+ data);
+				line = bufferedReader.readLine();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	public static void saveOutPutFile(String data) {
+		String projectPath = System.getProperty("user.dir");
+		try{
+//            FileWriter fstream = new FileWriter(System.currentTimeMillis() + "out.txt");
+			FileWriter fstream = new FileWriter(projectPath + "\\dataFile\\output.txt");
+			BufferedWriter out = new BufferedWriter(fstream);
+			out.write(data);
+			out.close();
+		}catch (Exception e){
+			System.err.println("Error: " + e.getMessage());
+		}
 	}
 
 }

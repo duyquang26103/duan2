@@ -1,4 +1,4 @@
-package pageObjects.hrm;
+package pageObjects;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -36,17 +36,6 @@ public class TdtPO extends BasePage {
 	public void createSaveDataInFile(String content) throws IOException {
 		String projectPath = System.getProperty("user.dir");
 
-//		try {
-//			File myObj = new File(projectPath + "\\dataFile\\input.txt");
-//			if (myObj.createNewFile()) {
-//				System.out.println("File created: " + myObj.getName());
-//			} else {
-//				System.out.println("File already exists.");
-//			}
-//		} catch (IOException e) {
-//			System.out.println("An error occurred.");
-//			e.printStackTrace();
-//		}
 
 		try {
 			Writer out = new BufferedWriter(
@@ -62,34 +51,6 @@ public class TdtPO extends BasePage {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
-
-//		String[] annotators = { "wseg"};
-//		VnCoreNLP pipeline = new VnCoreNLP(annotators);
-//		String str = null;
-//		BufferedReader br = new BufferedReader(new FileReader("dataFile/input.txt"));
-//		try {
-//			StringBuilder sb = new StringBuilder();
-//			String line = br.readLine();
-//
-//			while (line != null) {
-//				sb.append(line);
-//				sb.append(System.lineSeparator());
-//				line = br.readLine();
-//			}
-//			str = sb.toString();
-//		} finally {
-//			br.close();
-//		}
-
-//		Annotation annotation = new Annotation(str);
-//		pipeline.annotate(annotation);
-//
-//		// Write to file
-//		PrintStream outputPrinter = new PrintStream("dataFile/output.txt");
-//		pipeline.printToFile(annotation, outputPrinter);
-//
-//		// You can also get a single sentence to analyze individually
-//		Sentence firstSentence = annotation.getSentences().get(0);
 
 	}
 	

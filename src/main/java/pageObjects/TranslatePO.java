@@ -1,11 +1,9 @@
-package pageObjects.hrm;
+package pageObjects;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Hashtable;
+import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
@@ -16,6 +14,7 @@ import PageUIs.TransPageUI;
 import commons.BasePage;
 
 public class TranslatePO extends BasePage {
+    String projectPath = System.getProperty("user.dir");
     WebDriver driver;
 
     public TranslatePO(WebDriver driver) {
@@ -24,7 +23,7 @@ public class TranslatePO extends BasePage {
 
     public void inputSearchTextBox(String valueText) {
         waitForElementVisible(driver, TransPageUI.INPUT_TEXTBOX);
-        sendKeyToElement(driver, TransPageUI.INPUT_TEXTBOX, valueText);
+        sendKeyToElement(driver, TransPageUI.INPUT_TEXTBOX, valueText.toLowerCase());
     }
 
     public void clickOnTraHanVietButton() {
@@ -38,6 +37,7 @@ public class TranslatePO extends BasePage {
         try {
             String translatedWord = getElementText(driver, TransPageUI.KQ_HV_TEXT);
             dic.put(word, translatedWord);
+
             System.out.println(" - 1");
         } catch (Exception ex) {
             System.out.println(" - 0");
@@ -48,7 +48,7 @@ public class TranslatePO extends BasePage {
 
 
     public void saveOutPutFile(String data) {
-    	String projectPath = System.getProperty("user.dir");
+
         try{
 //            FileWriter fstream = new FileWriter(System.currentTimeMillis() + "out.txt");
             FileWriter fstream = new FileWriter(projectPath + "\\dataFile\\output.txt");
@@ -60,6 +60,37 @@ public class TranslatePO extends BasePage {
         }
     }
 
-}
+    public void readDicFile(Hashtable<String, String> dic){
+//        Read file
+        try (BufferedReader bufferedReader =
+                     new BufferedReader(new FileReader(projectPath + "\\dataFile\\dic.txt"))) {
+
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                System.out.println("doc:" + line);
+
+                // Read key value
+                Scanner scan = new Scanner(line);
+                //Initialize the string delimiter
+                scan.useDelimiter("-");
+
+                dic.put(scan.next(), scan.next());
+                //content.replace(scan.next(),scan.next());
+                scan.close();
+
+                line = bufferedReader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("hashtable: " + dic);
+    }
+
+
+
+    }
+
+
 
 

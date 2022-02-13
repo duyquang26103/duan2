@@ -1,4 +1,4 @@
-package pageObjects.hrm;
+package pageObjects;
 
 import org.openqa.selenium.WebDriver;
 

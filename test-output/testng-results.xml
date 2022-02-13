@@ -2,12 +2,12 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-02-08T03:20:09Z" name="TDT Page" finished-at="2022-02-08T03:20:56Z" duration-ms="46606">
+  <suite started-at="2022-02-08T07:27:21Z" name="TDT Page" finished-at="2022-02-08T07:28:08Z" duration-ms="46777">
     <groups>
     </groups>
-    <test started-at="2022-02-08T03:20:09Z" name="run on Headless Chrome" finished-at="2022-02-08T03:20:56Z" duration-ms="46606">
+    <test started-at="2022-02-08T07:27:21Z" name="run on Headless Chrome" finished-at="2022-02-08T07:28:08Z" duration-ms="46777">
       <class name="handle.data.Trans_Data_From_Web">
-        <test-method signature="TC_01_Translate()[pri:0, instance:handle.data.Trans_Data_From_Web@4b8ee4de]" started-at="2022-02-08T03:20:09Z" name="TC_01_Translate" finished-at="2022-02-08T03:20:56Z" duration-ms="46583" status="PASS">
+        <test-method signature="TC_01_Translate()[pri:0, instance:handle.data.Trans_Data_From_Web@4b8ee4de]" started-at="2022-02-08T07:27:21Z" name="TC_01_Translate" finished-at="2022-02-08T07:28:08Z" duration-ms="46759" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TC_01_Translate -->

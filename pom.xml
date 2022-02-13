@@ -185,7 +185,7 @@
 				<configuration>
 					<!-- Run TestNG xml file -->
 					<suiteXmlFiles>
-						<file>src/test/resources/runHrmTestCases.xml</file>
+						<file>src/test/resources/runTestCases.xml</file>
 					</suiteXmlFiles>
 
 					<!-- Argument -->
