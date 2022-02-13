@@ -81,8 +81,6 @@ public class Trans_Data_From_Web extends BaseTest {
                  BufferedWriter bw = new BufferedWriter(writer)) {
 
                 bw.write(key + "-" + dic.get(key) + "\n");
-//                bw.write(""); // dic.txt rong
-//            bw.write(String.valueOf(dic));
 
             } catch (IOException ex) {
                 System.err.format("IOException: %s%n", ex);

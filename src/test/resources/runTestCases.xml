@@ -3,7 +3,7 @@
 
 	<test name="run on Headless Chrome">
 		<classes>
- 			<class name="handle.data.Get_Data_From_Web" />
+<!-- 			<class name="handle.data.Get_Data_From_Web" />-->
 			<class name="handle.data.Trans_Data_From_Web" />
 			<class name="handle.data.Trans_Data_From_File" />
 		</classes>
